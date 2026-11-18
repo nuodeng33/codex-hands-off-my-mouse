@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="310" viewBox="0 0 780 310" role="img" aria-labelledby="title description">
+  <title id="title">Illustrated example</title>
+  <desc id="description">Notes keeps keyboard focus and the mouse pointer while Codex enters QC-1042 in a background customer form, presses Apply, and reads back the status.</desc>
+  <style>
+    svg {
+      --frame: #eef3f9;
+      --edge: #c2cedc;
+      --paper: #fff;
+      --bar: #f4f7fb;
+      --active-bar: #e6f0ff;
+      --ink: #172942;
+      --muted: #485b73;
+      --accent: #2459b0;
+      --control: #f7f9fc;
+      --success-bg: #e8f6ef;
+      --success: #126043;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      svg {
+        --frame: #141d2b;
+        --edge: #465771;
+        --paper: #1b2638;
+        --bar: #233147;
+        --active-bar: #21395e;
+        --ink: #eef4ff;
+        --muted: #bbc9dd;
+        --accent: #a1c6ff;
+        --control: #25354c;
+        --success-bg: #173c34;
+        --success: #92e3bc;
+      }
+    }
+    .frame { fill: var(--frame); stroke: var(--edge); }
+    .window { fill: var(--paper); stroke: var(--edge); stroke-width: 1.5; }
+    .window.active { stroke: var(--accent); stroke-width: 2; }
+    .bar { fill: var(--bar); }
+    .bar.active { fill: var(--active-bar); }
+    text { fill: var(--ink); font-size: 20px; }
+    .label { fill: var(--muted); font-size: 17px; }
+    .heading { font-weight: 650; }
+    .mode { font-size: 17px; font-weight: 700; letter-spacing: .7px; }
+    .accent { fill: var(--accent); }
+    .chrome { fill: none; stroke: var(--muted); stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
+    .rule { stroke: var(--edge); }
+    .control { fill: var(--control); stroke: var(--edge); stroke-width: 1.5; }
+    .success { fill: var(--success); }
+  </style>
+
+  <rect class="frame" x=".5" y=".5" width="779" height="309" rx="19"/>
+
+  <g>
+    <circle class="accent" cx="39" cy="43" r="5"/>
+    <text class="mode accent" x="54" y="49">FOREGROUND</text>
+    <rect class="window active" x="32" y="65" width="343" height="194" rx="11"/>
+    <path class="bar active" d="M43 66h321a10 10 0 0 1 10 10v30H33V76a10 10 0 0 1 10-10Z"/>
+    <path class="rule" d="M34 106.5h339"/>
+    <g fill="none" stroke="var(--accent)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="49" y="77" width="13" height="16" rx="2"/>
+      <path d="M53 82h5m-5 4h5"/>
+    </g>
+    <text class="heading" x="71" y="93">Notes</text>
+    <path class="chrome" d="M286 88h9m16-7h9v9h-9zm25 0 9 9m0-9-9 9"/>
+
+    <text class="heading" x="51" y="145">Meeting notes</text>
+    <text x="51" y="176">Review the draft.</text>
+    <path d="M52 185v22" fill="none" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M264 156q4 0 4 4v16q0 4-4 4m8-24q-4 0-4 4m0 16q0 4 4 4"
+          fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round"/>
+    <path class="rule" d="M51 218.5h305"/>
+    <text class="label" x="51" y="243">Mouse and typing stay here</text>
+  </g>
+
+  <g>
+    <circle cx="412" cy="43" r="5" fill="none" stroke="var(--muted)" stroke-width="1.7"/>
+    <text class="mode label" x="427" y="49">BACKGROUND</text>
+    <rect class="window" x="405" y="65" width="343" height="194" rx="11"/>
+    <path class="bar" d="M416 66h321a10 10 0 0 1 10 10v30H406V76a10 10 0 0 1 10-10Z"/>
+    <path class="rule" d="M406 106.5h341"/>
+    <g class="chrome">
+      <rect x="422" y="78" width="14" height="14" rx="2"/>
+      <path d="M426 82h6m-6 4h4"/>
+    </g>
+    <text class="heading" x="446" y="93">Customer form</text>
+    <path class="chrome" d="M659 88h9m16-7h9v9h-9zm25 0 9 9m0-9-9 9"/>
+
+    <text class="label" x="425" y="139">Customer ID</text>
+    <rect class="control" x="425" y="149" width="208" height="42" rx="6"/>
+    <text class="heading" x="438" y="177">QC-1042</text>
+    <rect class="control" x="644" y="149" width="84" height="42" rx="6"/>
+    <text class="heading" x="686" y="177" text-anchor="middle">Apply</text>
+    <rect x="425" y="208" width="303" height="35" rx="6" fill="var(--success-bg)"/>
+    <circle cx="444" cy="225.5" r="8" fill="none" stroke="var(--success)" stroke-width="1.65"/>
+    <path d="m440.5 225.5 2.5 2.5 4-5" fill="none" stroke="var(--success)" stroke-width="1.65"
+          stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="label success heading" x="460" y="232">Applied</text>
+    <text class="label success" x="715" y="232" text-anchor="end">Status read back</text>
+  </g>
+
+  <text class="label" x="748" y="288" text-anchor="end">Illustrated example</text>
+</svg>

@@ -24,6 +24,7 @@ $files = [Collections.Generic.List[string]]::new()
 $files.AddRange([string[]]@(
     '.agents/plugins/marketplace.json'
     'README.md'
+    'docs/background-demo.svg'
     'LICENSE'
     'THIRD_PARTY.md'
     "$plugin/plugin.json"

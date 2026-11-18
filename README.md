@@ -1,55 +1,99 @@
 # Windows Desktop for Codex
 
-A local Windows 11 x64 plugin that lets Codex operate a particular desktop window. It reads Windows accessibility controls, can capture one window for a vision model, and can send foreground input when the task calls for it. The plugin bundles one MCP server and a Skill.
+[简体中文](README.zh-CN.md) · [Download for Windows](https://github.com/nuodeng33/windows-desktop-mcp/releases/latest) · [Quick install](#install-in-codex)
 
-## 安装
+Give Codex a job in a Windows desktop app.
 
-从离线包解压后，在包含 `.agents` 和 `plugins` 的目录打开 PowerShell。需要支持 `codex plugin` 的 Codex 版本。
+> “Enter customer ID C-1042 in the order form, save it, and tell me what the status says.”
+
+Keep writing your notes. Codex fills the field and presses Save through the form’s Windows accessibility controls, even with your notes covering the form. **Your mouse stays in your hands.**
+
+![Illustrated example showing a user typing notes while Codex fills a background form](docs/background-demo.svg)
+
+## What to try
+
+| When you have… | Ask Codex to… |
+| --- | --- |
+| A WinForms data-entry tool open behind another window | Enter a value, submit the form, and read the confirmation back. |
+| A WPF settings dialog or an Electron app | Open a menu, choose an option, and check which item is selected. |
+| A custom canvas | Inspect just that window. Enable foreground mouse input when you want Codex to click or drag something on the canvas. |
+
+## Install in Codex
+
+Use Windows 11 x64 and a Codex version with the `codex plugin` command. The plugin bundles a local MCP server and a skill.
+
+**From a release.** Download and extract `windows-desktop-mcp-<version>-windows-x64.zip`. The ZIP includes the runtime. Open PowerShell in the extracted directory containing `.agents` and `plugins`, then run the two commands below. [Latest release](https://github.com/nuodeng33/windows-desktop-mcp/releases/latest)
 
 ```powershell
-codex plugin marketplace add "$((Get-Location).Path)"
+codex plugin marketplace add (Get-Location).Path
 codex plugin add windows-desktop@windows-desktop-tools
 ```
 
-打开新会话，即可使用 Windows Desktop 插件。可以说“后台在测试窗口中填入这行字，点保存，读回结果”，或者“可以看这个画布，并在这个窗口用鼠标把图块拖到右边”。
-
-如果使用 Git 源码，先在仓库根目录运行下面的脚本。它会准备固定版本的 Windows x64 运行时，之后执行上面的两条插件安装命令。
+**From source.** Open PowerShell in the repository root. Prepare the pinned Windows x64 runtime before registering the marketplace.
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\prepare-runtime.ps1
+codex plugin marketplace add (Get-Location).Path
+codex plugin add windows-desktop@windows-desktop-tools
 ```
 
-## 功能
+Open a new Codex chat. Give Codex the title of an open desktop window and tell it what to fill in, click, or read.
 
-| 工具 | 作用 |
-|---|---|
-| `list_windows` | 找到目标窗口句柄及其进程。 |
-| `get_tree` | 读取窗口或指定子树，支持按控件名、AutomationId 筛选及相邻观测差异。 |
-| `perform_action` | 调用控件、设值、选择、展开、折叠、切换和滚动。操作后可读回实际状态。 |
-| `begin_task` / `end_task` | 将识图和前台输入权限分别限定在本次任务的目标窗口。 |
-| `capture_window` | 返回窗口 PNG 和定位标签。坐标使用同次截图标识。 |
-| `window_input` | 在授权范围内点击、拖拽、输入文字、发送按键或滚动。 |
+## MCP tool reference
 
-后台控件路径默认不截图，不移动物理鼠标。少数应用调用无障碍控件时会自行切换焦点，插件报告观测到的变化。浏览器网页优先使用浏览器 DOM。前台输入会占用真实键鼠，已开始操作后若发现用户切换窗口便停止后续输入。
+| Tool | What it does |
+| --- | --- |
+| `list_windows` | Lists open windows and returns their window handles and process IDs. |
+| `get_tree` | Reads accessibility controls. Query a subtree by name or AutomationId, or compare it with a previous observation to see what changed. |
+| `perform_action` | Sets a value, invokes a button, selects an item, toggles, expands, collapses, or scrolls. Read back the control or status afterward to verify the result. |
+| `begin_task` / `end_task` | Opens or closes a session for one window, with separate options for capture and input. |
+| `capture_window` | Returns a PNG of the selected window, available accessibility labels, and a capture ID. Pixel coordinates start at the top left of the PNG. |
+| `window_input` | Clicks, drags, types, sends keys, or scrolls. Coordinate actions use a fresh capture ID. |
 
-窗口图像交给当前 MCP 客户端和它使用的模型。最小化、受保护以及无法单独渲染的窗口可能无法截图。驱动投递成功后，应用是否保存、选中或切换，需要从界面或应用状态读回确认。
+The MCP client receives the PNG and can pass it to its model. Capture depends on Windows being able to render the target window. Restore a minimized window before requesting its image.
 
-## 开发与测试
+### Use with another MCP client
 
-应用源码在 `plugins/windows-desktop/app/`，Skill 在插件目录的 `skills/`。MCP 兼容接口名为 `windows-uia-background`。原生测试使用 Windows 交互桌面，按顺序运行。WPF 和画布测试需要开发用 Python 3.11 或更高版本及 Pillow。
+The server uses stdio. After extracting the release or preparing the source runtime, adapt this example to your client's MCP configuration. Replace `C:\Tools\windows-desktop-mcp` with the absolute path to the directory that contains `plugins`.
+
+```json
+{
+  "mcpServers": {
+    "windows-uia-background": {
+      "command": "C:\\Tools\\windows-desktop-mcp\\plugins\\windows-desktop\\runtime\\python.exe",
+      "args": [
+        "-B",
+        "-I",
+        "C:\\Tools\\windows-desktop-mcp\\plugins\\windows-desktop\\app\\server.py"
+      ]
+    }
+  }
+}
+```
+
+## Development
+
+The server is in `plugins/windows-desktop/app/`. The Codex skill is in `plugins/windows-desktop/skills/`.
+
+After preparing the runtime, run the native tests in order on an interactive Windows desktop. Use Python 3.11 or newer with Pillow for the WPF and canvas suite.
 
 ```powershell
 py -3 tests/test_integration.py
 py -3 tests/test_native_extended.py
 ```
 
-生成包含运行时的离线插件包：
+Build the offline ZIP and its SHA-256 file in `dist/`.
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\package-offline.ps1
 ```
 
-卸载插件可运行 `codex plugin remove windows-desktop@windows-desktop-tools`。老版手工 MCP 注册与这个插件共存时，同一服务可能出现两次。迁移前请备份自己的手工 MCP 配置和独立 Skill。
+Use the command below to uninstall the Codex plugin.
 
-项目代码采用 MIT 许可证。CPython、Cua Driver 及其依赖保留各自的许可。见 [LICENSE](LICENSE) 和 [THIRD_PARTY.md](THIRD_PARTY.md)。
+```powershell
+codex plugin remove windows-desktop@windows-desktop-tools
+```
 
+## License
+
+The project uses the MIT License. CPython, Cua Driver, and their dependencies retain their own licenses. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY.md).
