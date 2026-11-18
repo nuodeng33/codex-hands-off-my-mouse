@@ -1,12 +1,10 @@
-# Windows Desktop for Codex
+# Codex，鼠标还我
 
-[English](README.md) · [下载 Windows 版](https://github.com/nuodeng33/windows-desktop-mcp/releases/latest) · [快速安装](#安装到-codex)
+**放心把活交给 Codex。它在后台操作，屏幕和鼠标都留给你。**
 
-把 Windows 软件里的一件事交给 Codex。
+[English](README.md) · [下载 Windows 版](https://github.com/nuodeng33/codex-hands-off-my-mouse/releases/latest) · [快速安装](#安装到-codex)
 
-> “帮我在订单窗口填入客户编号 C-1042，点保存，告诉我状态栏写了什么。”
-
-你可以留在笔记窗口继续写。即使订单窗口被盖住，Codex 也能通过它的无障碍控件填值、按按钮、读回结果。**这期间鼠标一直归你用。**
+你继续写会议笔记，Codex 在被笔记挡住的客户窗口填入编号 QC-1042，点「应用」，再把结果读给你。
 
 ![操作示意：用户在前台写笔记，Codex 同时在后台填写表单](docs/background-demo.svg)
 
@@ -22,7 +20,7 @@
 
 需要 Windows 11 x64 和支持 `codex plugin` 命令的 Codex 版本。插件内含本地 MCP 服务和桌面操作 Skill。
 
-**从发布包安装。** 下载并解压 `windows-desktop-mcp-<版本>-windows-x64.zip`。ZIP 自带运行时。在包含 `.agents` 和 `plugins` 的解压目录打开 PowerShell，执行下面两条命令。 [最新发布](https://github.com/nuodeng33/windows-desktop-mcp/releases/latest)
+**从发布包安装。** 下载并解压 `codex-hands-off-my-mouse-<版本>-windows-x64.zip`。ZIP 自带运行时。在包含 `.agents` 和 `plugins` 的解压目录打开 PowerShell，执行下面两条命令。 [最新发布](https://github.com/nuodeng33/codex-hands-off-my-mouse/releases/latest)
 
 ```powershell
 codex plugin marketplace add (Get-Location).Path
@@ -54,17 +52,17 @@ PNG 会传给当前 MCP 客户端，客户端可交给模型查看。能否截�
 
 ### 接入其他 MCP 客户端
 
-服务使用 stdio。解压发布包或准备好源码运行时后，按客户端的配置格式参考下面的 JSON。把 `C:\Tools\windows-desktop-mcp` 换成包含 `plugins` 的目录绝对路径。
+服务使用 stdio。解压发布包或准备好源码运行时后，按客户端的配置格式参考下面的 JSON。把 `C:\Tools\codex-hands-off-my-mouse` 换成包含 `plugins` 的目录绝对路径。
 
 ```json
 {
   "mcpServers": {
     "windows-uia-background": {
-      "command": "C:\\Tools\\windows-desktop-mcp\\plugins\\windows-desktop\\runtime\\python.exe",
+      "command": "C:\\Tools\\codex-hands-off-my-mouse\\plugins\\windows-desktop\\runtime\\python.exe",
       "args": [
         "-B",
         "-I",
-        "C:\\Tools\\windows-desktop-mcp\\plugins\\windows-desktop\\app\\server.py"
+        "C:\\Tools\\codex-hands-off-my-mouse\\plugins\\windows-desktop\\app\\server.py"
       ]
     }
   }

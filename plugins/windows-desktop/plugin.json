@@ -1,13 +1,13 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "windows-desktop",
-  "version": "1.0.0",
-  "description": "Inspect and operate Windows desktop apps through accessibility controls, with an explicit path for foreground interaction when needed.",
+  "version": "1.0.1",
+  "description": "Let Codex run tasks in background Windows apps while you keep using your screen and mouse.",
   "extensions": {
     "com.openai": {
       "interface": {
-        "displayName": "Windows Desktop",
-        "shortDescription": "Inspect and operate Windows desktop apps",
+        "displayName": "Codex, Hands Off My Mouse",
+        "shortDescription": "Run Windows apps in the background while you work",
         "category": "Productivity"
       }
     }

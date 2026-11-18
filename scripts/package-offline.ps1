@@ -54,7 +54,7 @@ foreach ($dependency in (& (Join-Path $PSScriptRoot 'prepare-runtime.ps1') -Offl
 
 $output = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OutputDirectory)
 [void][IO.Directory]::CreateDirectory($output)
-$name = "windows-desktop-mcp-$($manifest.version)-windows-x64.zip"
+$name = "codex-hands-off-my-mouse-$($manifest.version)-windows-x64.zip"
 $target = Join-Path $output $name
 $temporaryZip = "$target.$([guid]::NewGuid().ToString('N')).tmp"
 try {

@@ -1,12 +1,10 @@
-# Windows Desktop for Codex
+# Codex, Hands Off My Mouse
 
-[简体中文](README.zh-CN.md) · [Download for Windows](https://github.com/nuodeng33/windows-desktop-mcp/releases/latest) · [Quick install](#install-in-codex)
+**Leave the task to Codex. Keep your screen and mouse to yourself while it works in the background.**
 
-Give Codex a job in a Windows desktop app.
+[简体中文](README.zh-CN.md) · [Download for Windows](https://github.com/nuodeng33/codex-hands-off-my-mouse/releases/latest) · [Quick install](#install-in-codex)
 
-> “Enter customer ID C-1042 in the order form, save it, and tell me what the status says.”
-
-Keep writing your notes. Codex fills the field and presses Save through the form’s Windows accessibility controls, even with your notes covering the form. **Your mouse stays in your hands.**
+Keep taking meeting notes while Codex enters customer ID QC-1042 in the window behind them, presses Apply, and reads back the confirmation.
 
 ![Illustrated example showing a user typing notes while Codex fills a background form](docs/background-demo.svg)
 
@@ -22,7 +20,7 @@ Keep writing your notes. Codex fills the field and presses Save through the form
 
 Use Windows 11 x64 and a Codex version with the `codex plugin` command. The plugin bundles a local MCP server and a skill.
 
-**From a release.** Download and extract `windows-desktop-mcp-<version>-windows-x64.zip`. The ZIP includes the runtime. Open PowerShell in the extracted directory containing `.agents` and `plugins`, then run the two commands below. [Latest release](https://github.com/nuodeng33/windows-desktop-mcp/releases/latest)
+**From a release.** Download and extract `codex-hands-off-my-mouse-<version>-windows-x64.zip`. The ZIP includes the runtime. Open PowerShell in the extracted directory containing `.agents` and `plugins`, then run the two commands below. [Latest release](https://github.com/nuodeng33/codex-hands-off-my-mouse/releases/latest)
 
 ```powershell
 codex plugin marketplace add (Get-Location).Path
@@ -54,17 +52,17 @@ The MCP client receives the PNG and can pass it to its model. Capture depends on
 
 ### Use with another MCP client
 
-The server uses stdio. After extracting the release or preparing the source runtime, adapt this example to your client's MCP configuration. Replace `C:\Tools\windows-desktop-mcp` with the absolute path to the directory that contains `plugins`.
+The server uses stdio. After extracting the release or preparing the source runtime, adapt this example to your client's MCP configuration. Replace `C:\Tools\codex-hands-off-my-mouse` with the absolute path to the directory that contains `plugins`.
 
 ```json
 {
   "mcpServers": {
     "windows-uia-background": {
-      "command": "C:\\Tools\\windows-desktop-mcp\\plugins\\windows-desktop\\runtime\\python.exe",
+      "command": "C:\\Tools\\codex-hands-off-my-mouse\\plugins\\windows-desktop\\runtime\\python.exe",
       "args": [
         "-B",
         "-I",
-        "C:\\Tools\\windows-desktop-mcp\\plugins\\windows-desktop\\app\\server.py"
+        "C:\\Tools\\codex-hands-off-my-mouse\\plugins\\windows-desktop\\app\\server.py"
       ]
     }
   }
