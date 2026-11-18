@@ -1,0 +1,11 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "windows-uia-background": {
+      "type": "stdio",
+      "command": "./runtime/python.exe",
+      "args": ["-B", "-I", "${PLUGIN_ROOT}/app/server.py"],
+      "cwd": "./app"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+/.build/
+/dist/
+/plugins/windows-desktop/runtime/
+/plugins/windows-desktop/app/vendor/cua/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+/tests/*-state.json
+/tests/*-result.json
+/tests/*-tree.json

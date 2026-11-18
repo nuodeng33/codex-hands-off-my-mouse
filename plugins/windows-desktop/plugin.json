@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "windows-desktop",
+  "version": "1.0.0",
+  "description": "Inspect and operate Windows desktop apps through accessibility controls, with an explicit path for foreground interaction when needed.",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Windows Desktop",
+        "shortDescription": "Inspect and operate Windows desktop apps",
+        "category": "Productivity"
+      }
+    }
+  }
+}

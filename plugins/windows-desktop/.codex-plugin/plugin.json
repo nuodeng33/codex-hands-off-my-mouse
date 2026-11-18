@@ -1,0 +1,11 @@
+{
+  "name": "windows-desktop",
+  "version": "1.0.0",
+  "description": "Inspect and operate Windows desktop apps through accessibility controls, with an explicit path for foreground interaction when needed.",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Windows Desktop",
+    "shortDescription": "Inspect and operate Windows desktop apps",
+    "category": "Productivity"
+  }
+}
